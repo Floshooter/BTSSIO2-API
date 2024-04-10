@@ -6,16 +6,15 @@ const itemDAO = require('../controllers/itemDAO');
 // const middlewareAuth = require('../middleware/authorization')
 // const middlewareAdmin = require('../middleware/isAdmin');
 
-router.use('upload/',express.static('upload'));
+router.use('/upload', express.static('products'));
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'upload/products');
     },
     filename: (req, file, cb) => {
-        const name = path.basename(file.originalname, path.extname(file.originalname));
         console.log(file)
-        cb(null, Date.now() + '_' + name + path.extname(file.originalname));
+        cb(null, 'img-' + Date.now() + path.extname(file.originalname));
     }
 });
 
