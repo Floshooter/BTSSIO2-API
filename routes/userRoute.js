@@ -13,6 +13,6 @@ router.post('/inscription', userDAO.inscription);
 router.post('/login', userDAO.login);
 router.post('/addemployee', userDAO.addEmployee);
 router.put('/updateUser/:id', userDAO.updateUser);
-// router.delete('/deleteUser/:id', userDAO.deleteUser);
+router.delete('/deleteUser/:id', userDAO.deleteUser);
 
 module.exports = router;

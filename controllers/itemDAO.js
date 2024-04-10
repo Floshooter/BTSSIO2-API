@@ -24,7 +24,8 @@ exports.getItemById = async (req, res) => {
 }
 exports.addItem = async (req, res) => {
     try {
-        const { item_name, description, stocks, price, id_category, thumbnail } = req.body;
+        const { item_name, description, stocks, price, id_category} = req.body;
+        const thumbnail = req.file.filename;
         conn = await connexion.pool.getConnection();
         const addItem = await conn.query(`INSERT INTO items(item_name, description, stocks, thumbnail, price, id_category) VALUES (?, ?, ?, ?, ?, ?)`, [item_name, description, stocks, thumbnail, price, id_category])
         const addItemWithStrings = {
@@ -52,16 +53,12 @@ exports.getCategory = async (req, res) => {
     }
 }
 exports.updateStocks = async (req, res) => {
+    const id_item = req.params.id;
+    const updatedStock = req.body.stocks;
     try {
-        const { id_item } = req.params;
-        const { updatedStock } = req.body;
-        const query = `
-            UPDATE items
-            SET stocks = ?
-            WHERE id_item = ?
-        `;
-        await conn.query(query, [updatedStock, id_item]);
-
+        conn = await connexion.pool.getConnection();
+        const query = await conn.query(`UPDATE items SET stocks = ? WHERE id_items = ?`, [updatedStock, id_item]);
+        conn.release();
         res.status(200).json({ message: 'Stock mis à jour avec succès.' });
     } catch (error) {
         console.error('Erreur lors de la mise à jour du stock : ', error);
@@ -85,47 +82,25 @@ exports.deleteItem = async (req, res) => {
         conn = await connexion.pool.getConnection();
         const item = await conn.query('DELETE FROM items WHERE id_items = ?', [id]);
         conn.release();
-        res.status(200).json(item, { message: 'Item deleted successfully' });
+        if (item.affectedRows === 0) {
+            return res.status(404).json({ message: 'Item not found' });
+        }
+        res.status(200).json({ message: 'Item deleted successfully' });
     } catch (err) {
         console.log(err);
         res.status(500).send("Erreur lors de la suppression de l'item.");
     }
 }
-// exports.updateItem = async (req, res) => {
-//     const id = req.params.id;
-//     const { item_name, description, stocks, price, id_category } = req.body;
-//     try {
-//         conn = await connexion.pool.getConnection();
-//         const item = await conn.query('UPDATE items SET item_name = ?, description = ?, stocks = ?, price = ?, id_category = ? WHERE id_items = ?', [item_name, description, stocks, price, id_category, id]);
-//         conn.release();
-//         res.status(200).json(item, { message: 'Item updated successfully' });
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).send("Erreur lors de la mise à jour de l'item.");
-//     }
-// }
-
-
-
-
-
-// const MIME_TYPES = {
-//     'image/jpg': 'jpg',
-//     'image/jpeg': 'jpg',
-//     'image/png': 'png'
-// };
-
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, './images/items/');
-//     },
-//     filename: (req, file, cb) => {
-//         const name = file.originalname.split(' ').join('_');
-//         const extension = MIME_TYPES[file.mimetype];
-//         cb(null, name + Date.now() + '.' + extension);
-//     }
-// });
-
-// const upload = multer({ storage: storage });
-
-//upload.single('thumbnail') 
+exports.updateItem = async (req, res) => {
+    const id = req.params.id;
+    const { field, value } = req.body;
+    try {
+        conn = await connexion.pool.getConnection();
+        const item = await conn.query(`UPDATE items SET ${field} = ? WHERE id_items = ?`, [value, id]);
+        conn.release();
+        res.status(200).json({ message: 'Item updated successfully' });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Erreur lors de la mise à jour de l'item.");
+    }
+}
