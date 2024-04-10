@@ -144,16 +144,16 @@ exports.updateUser = async (req, res) => {
       res.status(500).json({ error: 'Error updating user' });
     }
 };
-// exports.deleteUser = async (req, res) => {
-//     const id = req.params.id;
-//     try {
-//       conn = await connexion.pool.getConnection();
-//       const deleteUserQuery = `DELETE FROM users WHERE id = ?`;
-//       await conn.query(deleteUserQuery, [id]);
-//       conn.release();
-//       res.status(200).json({ message: 'User deleted successfully' });
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ error: 'Error deleting user' });
-//     }
-// }
+exports.deleteUser = async (req, res) => {
+    const id = req.params.id;
+    try {
+      conn = await connexion.pool.getConnection();
+      const deleteUserQuery = `DELETE FROM users WHERE id = ?`;
+      await conn.query(deleteUserQuery, [id]);
+      conn.release();
+      res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error deleting user' });
+    }
+}
