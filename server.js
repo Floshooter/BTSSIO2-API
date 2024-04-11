@@ -5,9 +5,15 @@ const userRoute = require('./routes/userRoute');
 const boutiqueRoute = require('./routes/boutiqueRoute');
 const articleRoute = require('./routes/articleRoute');
 
-const whiteList = ['http://localhost:8001', 'http://localhost:3000'];
+const whiteList = ['http://192.168.1.2:8001', 'http://192.168.1.2:3000'];
 const corsOptions = {
-   origin: "*",
+   origin: function (origin, callback) {
+    if (whiteList.indexOf(origin) !== -1 || !origin) {
+       callback(null, true);
+    } else {
+       callback(new Error('Not allowed by CORS'));
+    }
+ },
    credentials: true,
    optionsSuccessStatus: 200,
 };

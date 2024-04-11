@@ -6,7 +6,7 @@ const itemDAO = require('../controllers/itemDAO');
 // const middlewareAuth = require('../middleware/authorization')
 // const middlewareAdmin = require('../middleware/isAdmin');
 
-router.use('/upload', express.static('products'));
+router.use('/upload', express.static('upload'));
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
