@@ -3,8 +3,21 @@ const path = require('path');
 const multer = require('multer');
 const router = express.Router();
 const itemDAO = require('../controllers/itemDAO');
-const middlewareAuth = require('../middleware/authorization')
-const middlewareAdmin = require('../middleware/isAdmin');
+// const middlewareAuth = require('../middleware/authorization')
+// const middlewareAdmin = require('../middleware/isAdmin');
+
+router.use('/upload', express.static('products'));
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'upload/products');
+    },
+    filename: (req, file, cb) => {
+        console.log(file)
+        cb(null, 'img-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
 
 router.use(express.json());
 
