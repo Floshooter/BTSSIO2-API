@@ -2,22 +2,18 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const userRoute = require('./routes/userRoute');
+const path = require('path');
 const boutiqueRoute = require('./routes/boutiqueRoute');
 const articleRoute = require('./routes/articleRoute');
 
-const whiteList = ['http://192.168.1.2:8001', 'http://192.168.1.2:3000'];
+const whiteList = ['http://192.168.1.28:8001', 'http://192.168.1.23:3000'];
 const corsOptions = {
-   origin: function (origin, callback) {
-    if (whiteList.indexOf(origin) !== -1 || !origin) {
-       callback(null, true);
-    } else {
-       callback(new Error('Not allowed by CORS'));
-    }
- },
+   origin: "*",
    credentials: true,
    optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
+app.use('/upload', express.static(path.join(__dirname, 'upload')));
 
 app.use('/users', userRoute);
 app.use('/boutique',boutiqueRoute);

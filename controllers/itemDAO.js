@@ -68,7 +68,9 @@ exports.updateStocks = async (req, res) => {
 exports.getItemByName = async (req, res) => {
         try {
             conn = await connexion.pool.getConnection();
-            const item = await conn.query('SELECT * FROM items INNER JOIN category_item ON items.id_category = category_item.id WHERE item_name LIKE ?', [`%${req.query.name}%`]);
+            const query = 'SELECT * FROM items INNER JOIN category_item ON items.id_category = category_item.id WHERE item_name LIKE ?';
+            const item = await conn.query(query, [`%${req.query.name}%`]);
+            conn.release();
             res.status(200).json(item)
         }
         catch (err) {

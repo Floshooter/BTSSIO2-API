@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
             email: user.email,
             permLevel: user.perm_level,
             isConnected: true,
-            password: user.pwd
+            password: user.pwd,
         }
         console.log(playload)
         const token = jwt.sign(playload, process.env.API_KEY, {expiresIn: '1h'});
