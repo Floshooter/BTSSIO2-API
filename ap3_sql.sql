@@ -31,17 +31,9 @@ CREATE TABLE IF NOT EXISTS `cart` (
   KEY `id_item` (`id_item`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `FK__items` FOREIGN KEY (`id_item`) REFERENCES `items` (`id_items`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Listage des données de la table m2l_bdd.cart : ~7 rows (environ)
-REPLACE INTO `cart` (`id`, `item_name`, `quantity`, `item_price`, `id_item`, `id_user`) VALUES
-	(52, 'Ballon de foot', 1, 12.5, 2, 40),
-	(53, 'Ballon de basket', 1, 20, 3, 40),
-	(54, 'Ballon de volley', 1, 10, 4, 40),
-	(55, 'Balle de ping pong', 1, 15, 6, 34),
-	(56, 'Corde à sauter', 2, 11.99, 11, 35),
-	(57, 'Corde à sauter', 2, 11.99, 11, 35),
-	(58, 'Corde à sauter', 2, 11.99, 11, 35);
+-- Listage des données de la table m2l_bdd.cart : ~0 rows (environ)
 
 -- Listage de la structure de la table m2l_bdd. category_item
 CREATE TABLE IF NOT EXISTS `category_item` (
@@ -71,30 +63,25 @@ CREATE TABLE IF NOT EXISTS `items` (
   `id_category` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_items`),
   KEY `id_category` (`id_category`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Listage des données de la table m2l_bdd.items : ~20 rows (environ)
+-- Listage des données de la table m2l_bdd.items : ~15 rows (environ)
 REPLACE INTO `items` (`id_items`, `item_name`, `description`, `stocks`, `thumbnail`, `price`, `id_category`) VALUES
-	(2, 'Ballon de foot', 'Ballon utilisé pour faire du football', 14, 'C:\\fakepath\\ballon_foot.jpg', 12.5, 1),
-	(3, 'Ballon de basket', 'Ballon utilisé pour faire du basketball', 12, 'C:\\fakepath\\ballon_basket.jpg', 20, 2),
-	(4, 'Ballon de volley', 'Ballon utilisé pour faire du volleyball', 20, 'C:\\fakepath\\ballon_volleyball.jpg', 10, 5),
-	(5, 'Balle de tennis', 'Pack de 50 balles utilisées pour faire du tennis', 50, 'C:\\fakepath\\balle_tennis.jpg', 25, 3),
-	(6, 'Balle de ping pong', 'Pack de 20 balles utilisées pour faire du tennis', 20, 'C:\\fakepath\\balle_tdt.jpg', 15, 4),
-	(7, 'Balle de golf', 'Pack de 5 balles utilisées pour faire du golf', 0, 'C:\\fakepath\\balle_golf.jpg', 21, 6),
-	(8, 'Casque de vélo', 'Casque utilisé lors de déplacement à vélo', 24, 'C:\\fakepath\\casque_velo.jpg', 30, 7),
-	(9, 'Chasuble', 'Pack de 10 chasuble utilisé pour la différenciation des équipes', 50, 'C:\\fakepath\\chasuble.jpg', 40, 7),
-	(10, 'Club de golf', 'Club utilisé pour la pratique du golf', 30, 'C:\\fakepath\\club_golf.jpg', 100, 6),
-	(11, 'Corde à sauter', 'Corde à sauter utilisée pour toute activité sportive', 100, 'C:\\fakepath\\corde_gym.jpg', 12.99, 7),
-	(12, 'Raquette de ping pong', 'Pack de 2 raquette utilisées pour la pratique du ping pong', 45, 'C:\\fakepath\\raquette_tdt.jpg', 24.67, 4),
-	(13, 'Raquette de tennis', 'Raquette utilisée pour la pratique du tennis', 78, 'C:\\fakepath\\raquette_tennis.jpg', 58, 3),
-	(14, 'Table de ping pong', 'Table de ping pong pratique pour le ping pong', 10, 'C:\\fakepath\\table_tdt.jpg', 343, 4),
-	(15, 'Tapis de sport', 'Tapis pour la pratique de plusieurs sport', 150, 'C:\\fakepath\\tapis_gym.jpg', 8, 7),
-	(16, 'Vélo', 'Vélo pour la pratique de cours à vélo', 5, 'C:\\fakepath\\vélo.jpg', 250, 7),
-	(20, 'Sac de sport', 'Sac de sport', 6, '', 45, 7),
-	(22, 'Gourde', 'Gourde', 18, '', 21, 7),
-	(23, 'Gants', 'Gants', 18, '', 6.98, 7),
-	(24, 'T-shirt foot', 't-shirt foot', 40, '', 16, 1),
-	(43, 'Ballon de volleyball', 'Ballon de volleyball officiel de taille réglementaire', 10, '', 24.99, 5);
+	(63, 'Balle de golf', 'Pack de 8 balle de golf.', 17, 'img-1713782141970.jpg', 9, 6),
+	(64, 'Balle de ping pong', 'Pack de 16 balle de tennis de table.', 49, 'img-1713782194058.jpg', 7, 4),
+	(65, 'Balle de tennis', 'Pack de 4 balle de tennis.', 24, 'img-1713782230006.jpg', 12, 3),
+	(66, 'Ballon de basketball', 'Ballon de backetball.', 5, 'img-1713782294177.jpg', 24, 2),
+	(67, 'Ballon de football', 'Ballon de football pour s\'amuser entre ami.', 78, 'img-1713782332476.jpg', 28, 1),
+	(68, 'Ballon de volleyball', 'Ballon de volleyball bon marché.', 34, 'img-1713782382588.jpg', 48, 5),
+	(69, 'Casque de vélo', 'Casque de vélo pour la meilleure des protections.', 38, 'img-1713782425517.jpg', 46, 7),
+	(70, 'Chasuble', 'Chasuble pour former des équipes.', 189, 'img-1713782456332.jpg', 14, 7),
+	(71, 'Club de golf', 'Pack de 4 club de golf.', 61, 'img-1713782512376.jpg', 399, 6),
+	(72, 'Corde à sauter', 'Corde à sauter pour vos meilleurs sauts !', 250, 'img-1713782573899.jpg', 5, 7),
+	(73, 'Raquette de ping pong', 'Raquette de ping pong parfaites pour les meilleurs smash !', 16, 'img-1713782821913.jpg', 14, 4),
+	(74, 'Raquette de tennis', 'Raquette de tennis en bonne état et très solide.', 19, 'img-1713782868357.jpg', 56, 3),
+	(75, 'Table de ping pong', 'Table de ping pong utile pour la pratique du sport.', 3, 'img-1713782914454.jpg', 269, 4),
+	(76, 'Tapis de gymnastique', 'Tapis pour s\'essuyer les pieds et faire du yoga.', 741, 'img-1713782970001.jpg', 6, 7),
+	(77, 'Vélo de course', 'Vélo de course pour défier les plus grands', 20, 'img-1713783012337.jpg', 347, 7);
 
 -- Listage de la structure de la table m2l_bdd. users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -109,16 +96,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci COMMENT='Utilisateur (0) - Staff (1) - Admin (2)';
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci COMMENT='Utilisateur (0) - Staff (1) - Admin (2)';
 
--- Listage des données de la table m2l_bdd.users : ~6 rows (environ)
+-- Listage des données de la table m2l_bdd.users : ~5 rows (environ)
 REPLACE INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `pwd`, `country`, `perm_level`) VALUES
 	(34, 'Florent', 'Bernier', 'Floshooter', 'f.bernier@ecole-ipssi.net', '$2b$10$ZCsUICQ8Po1.wmU/lh6O7u7RcxiGZfXN8UMzXvi60gUxalZcZHEsm', 'FR', 2),
 	(35, 'David', 'Groove', 'GroovyDave', 'davidgroove@gmail.com', '$2b$10$CBgYtUOzhqOYX6Fchx5IA.AL.FxtL/rz1PBK7MDMFzjURiKcqrY7y', 'UK', 0),
 	(40, 'Camille', 'Honnête', 'Camionnette', 'camillehonnête@gmail.com', '$2b$10$FXjgGq22//KzkYNiefrqO.kv7YwCfBz/yv1RZ358wepv/T9/Bnhzm', 'France', 0),
 	(41, 'Angele', 'Lemercier', 'Angela1', 'a.lemercier@m2l.fr', '$2b$10$CDCseuHgFRW7toOJcIT/au6mDpLvdymlJYQOzYeh9M4EJOVGhMg8e', 'FR', 1),
-	(65, 'John', 'Doe', 'john_doe123', 'john.doe@example.com', '$2b$10$EMxZHMQnKr.Bv.0l2F4fk.okq020BkYJcFGT6chfUIXKC8NWl/0eG', 'United States', 0),
-	(66, 'Alice', 'Dubois', 'alice_dub', 'alice.dubois@example.com', '$2b$10$HVOIh9fQNZHLktPQS402l.RSFWR5CFn..ZsrGSX7JyO501U.Fc.Xy', 'FR', 1);
+	(73, 'Charlie', 'Boston', 'Tonton', 'tonton@m2l.fr', '$2b$10$JLuXsB5PiV0d3wB2hc.Qhej0mAsFrKLvSrbgYgR9qa11TpW5zUlSa', 'FR', 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
